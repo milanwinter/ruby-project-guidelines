@@ -33,7 +33,7 @@ def list_of_hair_salons(city)
 end
 
 def readable_list(array_of_hashes)
-    array_of_hashes.each do |business|
+    list = array_of_hashes.each do |business|
         puts "-------------------------"
         puts "Name: #{business["name"]}"
         puts "Number of Reviews: #{business["review_count"]}"
@@ -43,6 +43,7 @@ def readable_list(array_of_hashes)
         puts "Phone Nummber: #{business["phone"]}"
         puts "--------------------------"
     end
+    list
 end
 
 def hair_salon_by_highest_rating(city)
@@ -50,8 +51,9 @@ def hair_salon_by_highest_rating(city)
     readable_list(list)
 end
 
-def method_name
-    
+def find_hair_salon_by_name(location = "San Francisco", name)
+    salon = list_of_hair_salons(location).select {|salon| salon["name"] == name}
+    readable_list(salon)
 end
 
 

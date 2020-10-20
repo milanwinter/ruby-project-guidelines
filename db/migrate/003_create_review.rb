@@ -1,4 +1,4 @@
-class Review < ActiveRecord::Migration[6.0]
+class CreateReview < ActiveRecord::Migration[5.0]
     def change
         create_table :reviews do|t|
             t.datetime :date
