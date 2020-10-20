@@ -22,14 +22,34 @@ def search(term="hair salon", location)
   
     response = HTTP.auth("Bearer #{API_KEY}").get(url, params: params)
     response.parse
+end
+
+def business(business_id)
+    url = "#{API_HOST}#{BUSINESS_PATH}#{business_id}"
+    response = HTTP.auth("Bearer #{API_KEY}").get(url)
+    response.parse
+end
+
+def business_reviews(business_id)
+    url = "#{API_HOST}#{BUSINESS_PATH}#{business_id}/reviews"
+    response = HTTP.auth("Bearer #{API_KEY}").get(url)
+    response.parse["reviews"]
   end
 
 def list_of_hair_salons(city)
     list = []
     data = search(city)
-    data["businesses"].each do |business|
+    data["businesses"].map do |business|
         list << business
     end
+    list
+end
+
+def list_of_hair_salon_hours(city)
+    list_of_id = list_of_hair_salons(city).map do |hair_salon|
+        hair_salon["id"]
+    end
+    list_of_id
 end
 
 def readable_list(aoh)
@@ -40,7 +60,7 @@ def readable_list(aoh)
         puts "Rating out of 5: #{business["rating"]}"
         puts "Price: #{business["price"]}"
         puts "Location: #{business["location"]["display_address"].join(" ")}"
-        puts "Phone Number: #{business["phone"]}"
+        puts "Phone Number: #{business["display_phone"]}"
         puts "--------------------------------------------------"
     end
 end
@@ -55,12 +75,11 @@ def hair_salon_by_price_range(city)
     readable_list(list)
 end
 
-def hair_salon_by_distance(city)
-    list = list_of_hair_salons(city).sort_by{|business| business["distance"]}
-    readable_list(list)
+def hair_salon_open_now(city)
+    list = list_of_hair_salons(city)
 end
 
-#binding.pry
+binding.pry
 
 
   

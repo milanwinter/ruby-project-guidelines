@@ -18,12 +18,12 @@ ActiveRecord::Schema.define(version: 3) do
 
   create_table "hair_salons", force: :cascade do |t|
     t.string "name"
-    t.integer "rating"
+    t.float "rating"
     t.string "location"
-    t.string "services"
-    t.integer "price"
+    t.string "price"
     t.string "website"
-    t.string "zip_code"
+    t.string "phone_number"
+    t.integer "number_of_reviews"
   end
 
   create_table "reviews", force: :cascade do |t|
