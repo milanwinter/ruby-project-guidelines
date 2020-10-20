@@ -24,17 +24,12 @@ def search(term="hair salon", location)
     response.parse
   end
 
-# def get_hair_salon_based_on_location(city)
-#     p search(city)
-# end
-
 def list_of_hair_salons(city)
     list = []
     data = search(city)
     data["businesses"].each do |business|
         list << business
     end
-    p list
 end
 
 def readable_list(aoh)
@@ -52,6 +47,16 @@ end
 
 def hair_salon_by_highest_rating(city)
     list = list_of_hair_salons(city).sort_by{|business| -business["rating"]}
+    readable_list(list)
+end
+
+def hair_salon_by_price_range(city)
+    list = list_of_hair_salons(city).sort_by{|business| business["price"].size}
+    readable_list(list)
+end
+
+def hair_salon_by_distance(city)
+    list = list_of_hair_salons(city).sort_by{|business| business["distance"]}
     readable_list(list)
 end
 

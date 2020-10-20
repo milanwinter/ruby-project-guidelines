@@ -4,4 +4,3 @@ require_relative '../lib/api_query.rb'
 
 cli = CLI.new
 cli.welcome
-# cli.get_location_from_user
