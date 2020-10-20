@@ -10,13 +10,17 @@ class CLI
         puts "1. Find hair salon with the highest rating."
         puts "2. Find hair salon based on price range."
         puts "3. Find the closest hair salon."
-        puts "4. Exit Menu."
+        puts "4. Find hair salon by name."
+        puts "5. Exit Menu."
         puts
         puts
         puts "Enter your selection: "
-        
-        city = get_user_input
-        get_hair_salon_based_on_location(city)
+        input = get_user_input
+            if input == "1"
+                puts "Please enter your location: "
+                city = get_user_input
+                puts hair_salon_by_highest_rating(city)
+            end
     end
 
     def get_user_input

@@ -33,12 +33,29 @@ def list_of_hair_salons(city)
     data = search(city)
     data["businesses"].each do |business|
         list << business
-        binding.pry
     end
     p list
 end
-a = list_of_hair_salons("san jose")
-binding.pry
+
+def readable_list(aoh)
+    aoh.each do |business|
+        puts "--------------------------------------------------"
+        puts "Name: #{business["name"]}"
+        puts "Number of Reviews: #{business["review_count"]}"
+        puts "Rating out of 5: #{business["rating"]}"
+        puts "Price: #{business["price"]}"
+        puts "Location: #{business["location"]["display_address"].join(" ")}"
+        puts "Phone Number: #{business["phone"]}"
+        puts "--------------------------------------------------"
+    end
+end
+
+def hair_salon_by_highest_rating(city)
+    list = list_of_hair_salons(city).sort_by{|business| -business["rating"]}
+    readable_list(list)
+end
+
+#binding.pry
 
 
   
