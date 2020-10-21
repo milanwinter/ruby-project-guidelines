@@ -101,6 +101,15 @@ def hair_salon_open_now(city)
     readable_list(list)
 end
 
+def find_hair_salon_by_name(location = "san jose", name)
+    salon = list_of_hair_salons(location).select {|salon| salon["name"] == name}
+    # if salon.length == 1
+    #     readable_list(salon)
+    # else
+    #     "No salon found."
+    # end
+end
+
 #binding.pry
 
 

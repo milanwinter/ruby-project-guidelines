@@ -26,7 +26,17 @@ class CLI
             hair_salon_by_price_range(city)
         elsif input == "3"
             puts "Please enter your location: "
-            city = get_user_input        
+            city = get_user_input
+            hair_salon_open_now(city)
+        elsif input == "4"
+            puts "Please enter your location: "
+            city = get_user_input
+            puts "Please enter a name"
+            name = gets.chomp
+            find_hair_salon_by_name(city, name)
+        else 
+            puts "Unavailable number entered. Please try again later"
+            #go back to main menu.
         end
     end
 
