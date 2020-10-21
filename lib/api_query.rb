@@ -8,11 +8,11 @@ BUSINESS_PATH = "/v3/businesses/"
 DEFAULT_BUSINESS_ID = "yelp-san-francisco"
 DEFAULT_TERM = "dinner"
 DEFAULT_LOCATION = "San Francisco, CA"
-SEARCH_LIMIT = 10
+SEARCH_LIMIT = 50
 
 API_KEY = ENV["YELP_API_KEY"]
 
-def search(term ="hair salon", location)
+def search(term ="hair salon", location="San Francisco")
     url = "#{API_HOST}#{SEARCH_PATH}"
     params = {
       term: term,
@@ -24,12 +24,48 @@ def search(term ="hair salon", location)
     response.parse
 end
 
-def list_of_hair_salons(city)
-      data = search(city)
+def business(business_id)
+    url = "#{API_HOST}#{BUSINESS_PATH}#{business_id}"
+    response = HTTP.auth("Bearer #{API_KEY}").get(url)
+    response.parse
+end
+
+def business_reviews(business_id)
+    url = "#{API_HOST}#{BUSINESS_PATH}#{business_id}/reviews"
+    response = HTTP.auth("Bearer #{API_KEY}").get(url)
+    response.parse["reviews"]
+end
+
+def list_of_reviews
+    list = []
+    list_of_business_id.each do |id|
+        list << business_reviews(id)
+    end
+    list.flatten
+end
+
+def list_of_hair_salons
+      data = search
       list = []
       data["businesses"].each do |business|
         list << business
       end
+      list
+end
+
+def list_of_business_id
+    list = []
+    list_of_hair_salons.map do |hair_salon|
+       list << hair_salon["id"]
+    end
+    list
+end
+
+def list_of_salon_info
+    list = list_of_business_id.map do |id|
+        business(id)
+    end
+    list
 end
 
 def readable_list(array_of_hashes)
@@ -46,8 +82,8 @@ def readable_list(array_of_hashes)
     list
 end
 
-def hair_salon_by_highest_rating(city)
-    list = list_of_hair_salons(city).sort_by{|business| business["rating"]}.reverse
+def hair_salon_by_highest_rating
+    list = list_of_hair_salons.sort_by{|business| business["rating"]}.reverse
     readable_list(list)
 end
 
@@ -57,5 +93,5 @@ def find_hair_salon_by_name(location = "San Francisco", name)
 end
 
 
-#   binding.pry
- 
+#  binding.pry
+  
