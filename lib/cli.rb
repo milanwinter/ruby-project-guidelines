@@ -26,8 +26,7 @@ class CLI
             hair_salon_by_price_range(city)
         elsif input == "3"
             puts "Please enter your location: "
-            city = get_user_input
-            
+            city = get_user_input        
         end
     end
 

@@ -27,10 +27,10 @@ ActiveRecord::Schema.define(version: 3) do
   end
 
   create_table "reviews", force: :cascade do |t|
+    t.string "name"
     t.datetime "date"
     t.string "comment"
     t.integer "number_of_stars"
-    t.integer "useful_votes"
   end
 
 end

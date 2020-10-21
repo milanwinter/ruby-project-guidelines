@@ -34,7 +34,15 @@ def business_reviews(business_id)
     url = "#{API_HOST}#{BUSINESS_PATH}#{business_id}/reviews"
     response = HTTP.auth("Bearer #{API_KEY}").get(url)
     response.parse["reviews"]
-  end
+end
+
+def list_of_reviews(city)
+    list = []
+    list_of_business_id(city).each do |id|
+        list << business_reviews(id)
+    end
+    list.first
+end
 
 def list_of_hair_salons(city)
     list = []
@@ -45,11 +53,19 @@ def list_of_hair_salons(city)
     list
 end
 
-def list_of_hair_salon_hours(city)
-    list_of_id = list_of_hair_salons(city).map do |hair_salon|
-        hair_salon["id"]
+def list_of_business_id(city)
+    list = []
+    list_of_hair_salons(city).map do |hair_salon|
+       list << hair_salon["id"]
     end
-    list_of_id
+    list
+end
+
+def list_of_salon_info(city)
+    list = list_of_business_id(city).map do |id|
+        business(id)
+    end
+    list
 end
 
 def readable_list(aoh)
@@ -65,6 +81,7 @@ def readable_list(aoh)
     end
 end
 
+
 def hair_salon_by_highest_rating(city)
     list = list_of_hair_salons(city).sort_by{|business| -business["rating"]}
     readable_list(list)
@@ -76,10 +93,15 @@ def hair_salon_by_price_range(city)
 end
 
 def hair_salon_open_now(city)
-    list = list_of_hair_salons(city)
+    list = list_of_salon_info(city).map do |business|
+        if business["hours"].first["is_open_now"] == true
+            business
+        end
+    end.compact
+    readable_list(list)
 end
 
-binding.pry
+#binding.pry
 
 
   
