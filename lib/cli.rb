@@ -21,7 +21,7 @@ require 'pry'
             puts "Welcome to the SalonFindr App!"
             puts "Please enter your location: "
             city = get_user_input
-            if city == "san francisco"
+            if city == "San Francisco" || "san francisco"
                 menu 
                 input = get_input
 
@@ -29,23 +29,25 @@ require 'pry'
                 when "1"
                     HairSalon.top_10_highest_reviewed_salons_with_most_reviews
                 when "2"
-                    puts "Would you like to sort by highest price or lowest?"
-                    puts "Enter 1 for highest and 2 for lowest"
-                    get_input
-                    if get_input == "1"
+                    puts "Would you like to sort by high-end or affordable salons?"
+                    puts "Enter 1 for high-end and 2 for affordable"
+                    number = get_input
+                    if number == "1"
                         HairSalon.salons_by_highest_price
-                    else get_input == "2"
+                    else number == "2"
                         HairSalon.salons_by_lowest_price
                     end
                 when "3"
-                    puts "Please Enter a name of a Salon"
-                    get_input
-                    HairSalon.hair_salon_info_by_name(get_input)
+                    hair_salon_open_now("San Francisco")
                 when "4"
-                    puts "Please enter a name"
-                    name = gets.chomp
-                    find_hair_salon_by_name(city, name)
+                    puts "Please Enter a name of a Salon"
+                    name = get_input
+                    HairSalon.hair_salon_info_by_name(name)
                 when "5"
+                    puts "please enter a name to get reviews"
+                    name = gets.chomp.titleize
+                    HairSalon.get_reviews_for_specific_salon(name)
+                when "6"
                     puts "Thank you for using Salon Findr App <3."
                     exit
                 else 
@@ -99,7 +101,7 @@ require 'pry'
 
 
         def get_input
-            input = get_user_input
+            input = gets.chomp
         end
     
 

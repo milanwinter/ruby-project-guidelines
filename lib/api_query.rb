@@ -12,7 +12,7 @@ SEARCH_LIMIT = 50
 
 API_KEY = ENV["YELP_API_KEY"]
 
-def search(term ="hair salon", location="San Francisco")
+def search(term ="hair salon", location)
     url = "#{API_HOST}#{SEARCH_PATH}"
     params = {
       term: term,
@@ -36,16 +36,16 @@ def business_reviews(business_id)
     response.parse["reviews"]
 end
 
-def list_of_reviews
+def list_of_reviews(city)
     list = []
-    list_of_business_id.each do |id|
+    list_of_business_id(city).each do |id|
         list << business_reviews(id)
     end
     list.flatten
 end
 
-def list_of_hair_salons
-      data = search
+def list_of_hair_salons(city)
+      data = search(city)
       list = []
       data["businesses"].each do |business|
         list << business
@@ -53,16 +53,16 @@ def list_of_hair_salons
       list
 end
 
-def list_of_business_id
+def list_of_business_id(city)
     list = []
-    list_of_hair_salons.map do |hair_salon|
+    list_of_hair_salons(city).map do |hair_salon|
        list << hair_salon["id"]
     end
     list
 end
 
-def list_of_salon_info
-    list = list_of_business_id.map do |id|
+def list_of_salon_info(city)
+    list = list_of_business_id(city).map do |id|
         business(id)
     end
     list
@@ -82,14 +82,27 @@ def readable_list(array_of_hashes)
     list
 end
 
-def hair_salon_by_highest_rating
-    list = list_of_hair_salons.sort_by{|business| business["rating"]}.reverse
+def hair_salon_open_now(city)
+    list = list_of_salon_info(city).map do |business|
+        if business["hours"].first["is_open_now"] === true
+            business
+        end
+    end.compact
+    readable_list(list)
+end
+
+def hair_salon_by_highest_rating(city)
+    list = list_of_hair_salons(city).sort_by{|business| business["rating"]}.reverse
     readable_list(list)
 end
 
 def find_hair_salon_by_name(location = "San Francisco", name)
     salon = list_of_hair_salons(location).select {|salon| salon["name"] == name}
-    readable_list(salon)
+    if salon.length == 1
+        readable_list(salon)
+    else
+        puts ""
+        puts "No Salon found. Please review salon's name."
 end
 
 

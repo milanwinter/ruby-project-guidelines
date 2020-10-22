@@ -5,7 +5,7 @@ require_relative '../app/models/customer.rb'
 require_relative '../app/models/review.rb'
 
 cli = CLI.new
-cli.menu
+# cli.menu
 cli.get_city
 
 

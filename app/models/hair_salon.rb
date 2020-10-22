@@ -23,11 +23,13 @@ class HairSalon < ActiveRecord::Base
 
 
     def self.salons_by_highest_price
-        self.all.select{|salon| salon.price == "$$$"}.take(10).to_a
+        salons = self.all.select{|salon| salon.price == "$$$"}.take(10).to_a
+        self.print_out_info(salons)
     end
 
     def self.salons_by_lowest_price
-        self.all.select{|salon| salon.price == "$"}.take(10).to_a
+       salons = self.all.select{|salon| salon.price == "$"}.take(10).to_a
+       self.print_out_info(salons)
     end
 
     def self.hair_salon_info_by_name(name)
@@ -50,7 +52,19 @@ class HairSalon < ActiveRecord::Base
         list
     end
 
+    # def find_salon_by_name(name)
+    #     self.all.select{|salon| salon.name == name}
+    # end
 
+    def self.get_reviews_for_specific_salon(name)
+        # binding.pry
+        salon = self.all.select{|salon| salon.name == name}
+        reviews = Review.all.select do |review|
+            review.hair_salon_id == salon.first.id
+        end
+            Review.make_reviews_readable(reviews)
+    
+    end
 
 
 
