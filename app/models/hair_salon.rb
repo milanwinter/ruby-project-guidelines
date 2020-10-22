@@ -17,7 +17,8 @@ class HairSalon < ActiveRecord::Base
     end
 
     def self.top_10_highest_reviewed_salons_with_most_reviews
-       self.most_reviewed_salons.select{|salon| salon.rating == 5}.take(10).to_a
+       salon = self.most_reviewed_salons.select{|salon| salon.rating == 5}.take(10).to_a
+       self.print_out_info(salon)
     end
 
 
@@ -30,7 +31,8 @@ class HairSalon < ActiveRecord::Base
     end
 
     def self.hair_salon_info_by_name(name)
-        self.all.select{|salon| salon.name == name}
+        salon = self.all.select{|salon| salon.name == name}
+        self.print_out_info(salon)
     end
 
     def self.print_out_info(array_of_salon_hashes)
