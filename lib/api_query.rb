@@ -83,21 +83,31 @@ end
 
 
 def hair_salon_by_highest_rating(city)
-    list = list_of_hair_salons(city).sort_by{|business| -business["rating"]}
+    list = list_of_hair_salons(city).sort_by{|business| business["rating"]}.reverse
     readable_list(list)
 end
 
-def hair_salon_by_price_range(city)
-    list = list_of_hair_salons(city).sort_by{|business| business["price"].length}
+def hair_salon_with_most_reviews(city)
+    list = list_of_hair_salons(city).sort_by{|business| business["review_count"]}.reverse
+    readable_list(list)
+end
+
+def hair_salon_with_highest_price(city)
+    list = list_of_hair_salons(city).select{|business| business["price"] == "$$$"}
+    readable_list(list)
+end
+
+def hair_salon_with_lowest_price(city)
+    list = list_of_hair_salons(city).select{|business| business["price"] == "$"}
     readable_list(list)
 end
 
 def hair_salon_open_now(city)
-    list = list_of_salon_info(city).map do |business|
-        if business["hours"].first["is_open_now"] === true
+    list = list_of_salon_info(city).map {|business|
+        if business["hours"].first()["is_open_now"] === true
             business
         end
-    end.compact
+    }.compact
     readable_list(list)
 end
 
@@ -112,6 +122,27 @@ def find_hair_salon_by_name(location = "san jose", name)
     end
 end
 
+def rendered_list(aoh)
+    #binding.pry
+    aoh.each do |review|
+        puts "--------------------------------------------------"
+        puts "Name: #{review["user"]["name"]}"
+        puts "Comment: #{review["text"]}"
+        puts "Number of stars: #{review["rating"]}"
+        puts "Date: #{review["time_created"]}"
+        puts "--------------------------------------------------"      
+    end
+end
+
+def hair_salon_first_three_reviews(city, name)
+    list = list_of_hair_salons(city).collect{|business|
+        if business["name"] == name
+            business_reviews(business["id"])
+        end
+    }.compact.first
+    #binding.pry
+    rendered_list(list)
+end
 
 
 city = "san jose"
