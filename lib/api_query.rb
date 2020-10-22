@@ -8,7 +8,7 @@ BUSINESS_PATH = "/v3/businesses/"
 DEFAULT_BUSINESS_ID = "yelp-san-francisco"
 DEFAULT_TERM = "dinner"
 DEFAULT_LOCATION = "San Francisco, CA"
-SEARCH_LIMIT = 10
+SEARCH_LIMIT = 20
 
 API_KEY = ENV["YELP_API_KEY"]
 
@@ -38,10 +38,10 @@ end
 
 def list_of_reviews(city)
     list = []
-    list_of_business_id(city).each do |id|
+    list_of_business_id(city).map do |id|
         list << business_reviews(id)
     end
-    list.first
+    list.flatten
 end
 
 def list_of_hair_salons(city)
@@ -88,28 +88,33 @@ def hair_salon_by_highest_rating(city)
 end
 
 def hair_salon_by_price_range(city)
-    list = list_of_hair_salons(city).sort_by{|business| business["price"].size}
+    list = list_of_hair_salons(city).sort_by{|business| business["price"].length}
     readable_list(list)
 end
 
 def hair_salon_open_now(city)
     list = list_of_salon_info(city).map do |business|
-        if business["hours"].first["is_open_now"] == true
+        if business["hours"].first["is_open_now"] === true
             business
         end
     end.compact
     readable_list(list)
 end
 
+
 def find_hair_salon_by_name(location = "san jose", name)
     salon = list_of_hair_salons(location).select {|salon| salon["name"] == name}
-    # if salon.length == 1
-    #     readable_list(salon)
-    # else
-    #     "No salon found."
-    # end
+    if salon.length == 1
+        readable_list(salon)
+    else
+        puts ""
+        puts "No salon found. Please review salon's name."
+    end
 end
 
+
+
+city = "san jose"
 #binding.pry
 
 

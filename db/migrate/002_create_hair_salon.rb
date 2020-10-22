@@ -8,6 +8,7 @@ class CreateHairSalon < ActiveRecord::Migration[5.0]
             t.string :website
             t.string :phone_number
             t.integer :number_of_reviews
+            t.integer :review_id
         end
     end
 end

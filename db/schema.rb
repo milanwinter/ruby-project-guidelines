@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 3) do
 
   create_table "customers", force: :cascade do |t|
     t.string "name"
+    t.integer "review_id"
   end
 
   create_table "hair_salons", force: :cascade do |t|
@@ -24,13 +25,17 @@ ActiveRecord::Schema.define(version: 3) do
     t.string "website"
     t.string "phone_number"
     t.integer "number_of_reviews"
+    t.integer "review_id"
   end
 
   create_table "reviews", force: :cascade do |t|
     t.string "name"
+    t.string "business_website"
     t.datetime "date"
     t.string "comment"
     t.integer "number_of_stars"
+    t.integer "hair_salon_id"
+    t.integer "customer_id"
   end
 
 end
