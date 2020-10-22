@@ -40,17 +40,18 @@ class HairSalon < ActiveRecord::Base
     def self.print_out_info(array_of_salon_hashes)
         #output readable list of info
         list = array_of_salon_hashes.each do |salon|
-            puts "-------------------------"
+            puts "--------------------------------------------------"
             puts "Name: #{salon.name}"
             puts "Number of Reviews: #{salon.number_of_reviews}"
             puts "Rating out of 5: #{salon.rating}"
             puts "Price: #{salon.price}"
             puts "Location(s): #{salon.location}"
             puts "Phone Nummber: #{salon.phone_number}"
-            puts "--------------------------"
+            puts "--------------------------------------------------"
         end
         list
     end
+
 
     def self.get_reviews_for_specific_salon(name)
         # binding.pry

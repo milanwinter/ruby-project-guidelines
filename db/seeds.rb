@@ -8,7 +8,7 @@ require_relative '../lib/api_query.rb'
         list_of_hair_salons("san francisco").each do |business|
             HairSalon.create(
                 name: business["name"], 
-                rating: business["review_count"],
+                rating: business["rating"],
                 location: business["location"]["display_address"].join(" "),
                 price: business["price"],
                 website: business["url"],

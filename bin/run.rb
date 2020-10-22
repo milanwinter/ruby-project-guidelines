@@ -6,5 +6,4 @@ require_relative '../app/models/customer.rb'
 require_relative '../app/models/review.rb'
 
 cli = CLI.new
-cli.welcome
-cli.get_city
+cli.call
