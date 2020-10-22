@@ -3,16 +3,23 @@ require 'pry'
 
     class CLI
 
+        @@location
+
         def call
             intro
+            get_location
             menu
         end
         
-        
+        def get_location
+            puts "Please enter Location"
+            location = gets.chomp
+            @@location = location
+        end
+
         def menu
             loop do
-                puts "Please enter your location: "
-                city = gets.chomp
+                city = @@location
                 if city.downcase == "san francisco"
                     display_menu
                     number = gets.chomp
@@ -21,6 +28,7 @@ require 'pry'
                     when "1"
                         puts "Highest Rated Salons by most reviews"
                         HairSalon.top_10_highest_reviewed_salons_with_most_reviews
+                        sub_menu_sf
                     when "2"
                         puts "Would you like to sort by high-end or affordable salons?"
                         puts "Enter 1 for high-end and 2 for affordable"
@@ -28,13 +36,16 @@ require 'pry'
                         if number == "1"
                             puts "High End Salons:"
                             HairSalon.salons_by_highest_price
+                            sub_menu_sf
                         else number == "2"
                             puts "Affordable Salons"
                             HairSalon.salons_by_lowest_price
+                            sub_menu_sf
                         end
                     when "3"
                         "Hair Salons That Are Open Now:"
                         hair_salon_open_now("San Francisco")
+                        sub_menu_sf
                     when "4"
                         puts "Please Enter a name of a Salon"
                         name = gets.chomp
@@ -47,6 +58,7 @@ require 'pry'
                     end
                     
                     
+
                 else
                     display_menu
                     puts 'got into the else statement'
@@ -78,27 +90,38 @@ require 'pry'
                             puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
                             puts "Unavailable number entered. Please enter to get back to menu."
                     end
-                    # puts "------------------------------------------------"
-                    # puts "1. More information about hair salon."
-                    # puts "2. Go back to main menu."
-                    # puts
-                    # puts
-                    # puts "Enter your selection: "
-                    # input = get_user_input
-                    # case input 
-                    # when "1"
-                    #     puts "Please enter salon's name: "
-                    #     name = gets.chomp
-                    #     find_hair_salon_by_name(city, name)
-                    # when "2"
-                    #     menu
-                    #     function
-                        
-                    # end
+                    
                 end
             end
         end
-        
+
+        def sub_menu_sf
+            loop do
+                puts
+                puts "------------------------------------------------"
+                puts "1. View more info about a hair salon."
+                puts "2. Get Reviews "
+                puts "3. Go back to main menu."
+                puts "4. Exit"
+                puts
+                puts "Enter your selection: "
+                num = gets.chomp
+                if num == "1"
+                    puts "Please Enter the Name of the Hair Salon you want more info on"
+                    name = gets.chomp.titleize
+                    HairSalon.hair_salon_info_by_name(name)
+                elsif num == "2"
+                    puts "Please Enter the Name of the Hair Salon you want reviews for"
+                    name = gets.chomp.titleize
+                    HairSalon.get_reviews_for_specific_salon(name)
+
+                elsif num == "3"
+                    break
+                elsif num == "4"
+                    exit
+                end
+            end
+        end
         # when "5"
         #     puts "please enter a name to get reviews"
         #     name = gets.chomp.titleize
