@@ -16,28 +16,45 @@ class HairSalon < ActiveRecord::Base
         HairSalon.order(number_of_reviews: :desc)
     end
 
-    def self.top_10_highest_reviewed_salons_with_most_reviews
-       salon = self.most_reviewed_salons.select{|salon| salon.rating == 5}.take(10).to_a
-       self.print_out_info(salon)
+    def self.top_20_highest_reviewed_salons_with_most_reviews
+       salon = self.most_reviewed_salons.select{|salon| salon.rating == 5}.take(20).to_a
+       self.print_out_basic_info(salon)
     end
 
 
     def self.salons_by_highest_price
-        salons = self.all.select{|salon| salon.price == "$$$"}.take(10).to_a
-        self.print_out_info(salons)
+        salons = self.all.select{|salon| salon.price == "$$$"}.take(20).to_a
+        self.print_out_basic_info(salons)
     end
 
     def self.salons_by_lowest_price
-       salons = self.all.select{|salon| salon.price == "$"}.take(10).to_a
-       self.print_out_info(salons)
+       salons = self.all.select{|salon| salon.price == "$"}.take(20).to_a
+       self.print_out_basic_info(salons)
     end
 
     def self.hair_salon_info_by_name(name)
         salon = self.all.select{|salon| salon.name == name}
-        self.print_out_info(salon)
+        self.print_out_full_info(salon)
     end
 
-    def self.print_out_info(array_of_salon_hashes)
+    # def self.hair_salon_info_by_name_full(name)
+    #     salon = self.all.select{|salon| salon.name == name}
+    #     self.print_out_full_info(salon)
+    # end
+
+    def self.print_out_basic_info(aoh)
+        list = aoh.each do |salon|
+            puts "--------------------------"
+            puts "Name: #{salon.name}"
+            puts "Rating out of 5: #{salon.rating}"
+            puts "Price: #{salon.price}"
+            puts "Number of Reviews #{salon.number_of_reviews}"
+            puts "                                "
+            puts "                                "
+        end
+    end
+
+    def self.print_out_full_info(array_of_salon_hashes)
         #output readable list of info
         list = array_of_salon_hashes.each do |salon|
             puts "-------------------------"
@@ -45,8 +62,9 @@ class HairSalon < ActiveRecord::Base
             puts "Number of Reviews: #{salon.number_of_reviews}"
             puts "Rating out of 5: #{salon.rating}"
             puts "Price: #{salon.price}"
-            puts "Location(s): #{salon.location}"
+            puts "Location: #{salon.location}"
             puts "Phone Nummber: #{salon.phone_number}"
+            puts "Website: #{salon.website}"
             puts "--------------------------"
         end
         list

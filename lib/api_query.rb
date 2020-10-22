@@ -8,7 +8,7 @@ BUSINESS_PATH = "/v3/businesses/"
 DEFAULT_BUSINESS_ID = "yelp-san-francisco"
 DEFAULT_TERM = "dinner"
 DEFAULT_LOCATION = "San Francisco, CA"
-SEARCH_LIMIT = 50
+SEARCH_LIMIT = 20
 
 API_KEY = ENV["YELP_API_KEY"]
 
@@ -46,7 +46,6 @@ end
 
 def list_of_hair_salons(city)
       data = search(city)
-
       list = []
       data["businesses"].each do |business|
         list << business
@@ -118,7 +117,7 @@ def hair_salon_with_lowest_price(city)
 end
 
 def rendered_list(aoh)
-    
+    #binding.pry
     aoh.each do |review|
         puts "--------------------------------------------------"
         puts "Name: #{review["user"]["name"]}"
@@ -138,5 +137,4 @@ def hair_salon_first_three_reviews(city, name)
     #binding.pry
     rendered_list(list)
 end
-
   

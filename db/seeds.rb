@@ -5,7 +5,7 @@ require_relative '../lib/api_query.rb'
 
 
   def create_new_businesses_in_table
-    list_of_hair_salons.each do |business|
+    list_of_hair_salons("San Fransico").each do |business|
         HairSalon.create(
           name: business["name"], 
           rating: business["rating"], 
@@ -18,7 +18,7 @@ require_relative '../lib/api_query.rb'
   end
 
   def create_new_reviews_in_table
-    list_of_reviews.each do |review|
+    list_of_reviews("San Fransicso").each do |review|
         Review.create(
             name: review["user"]["name"],
             date: review["time_created"],

@@ -13,7 +13,7 @@ require 'pry'
         
         def get_location
             puts "Please enter Location"
-            location = gets.chomp
+            location = gets.chomp.titleize
             @@location = location
         end
 
@@ -27,10 +27,12 @@ require 'pry'
                     case number
                     when "1"
                         puts "Highest Rated Salons by most reviews"
-                        HairSalon.top_10_highest_reviewed_salons_with_most_reviews
+                        HairSalon.top_20_highest_reviewed_salons_with_most_reviews
                         sub_menu_sf
                     when "2"
                         puts "Would you like to sort by high-end or affordable salons?"
+                        puts "                                                        "
+                        puts "--------------------------------------------------------"
                         puts "Enter 1 for high-end and 2 for affordable"
                         number = gets.chomp
                         if number == "1"
@@ -66,6 +68,7 @@ require 'pry'
                     case number
                         when "1"
                             hair_salon_by_highest_rating(city)
+                            sub_menu_api
                         when "2"
                             puts "Would you like to sort by high-end or affordable salons?"
                             puts "Enter 1 for high-end and 2 for affordable"
@@ -73,16 +76,20 @@ require 'pry'
                             if number == "1"
                                 puts "High End Salons:"
                                 hair_salon_with_highest_price(city)
+                                sub_menu_api
                              else number == "2"
                                 puts "Affordable Salons"
                                 hair_salon_with_lowest_price(city)
+                                sub_menu_api
                             end
                         when "3"
                             hair_salon_open_now(city)
+                            sub_menu_api
                         when "4"
                             puts "Please enter a name"
                             name = gets.chomp
                             find_hair_salon_by_name(city, name)
+                            sub_menu_api
                         when "5"
                             "Thank you for using SalonFindr! Have a great day"
                             exit
@@ -103,7 +110,6 @@ require 'pry'
                 puts "2. Get Reviews "
                 puts "3. Go back to main menu."
                 puts "4. Exit"
-                puts
                 puts "Enter your selection: "
                 num = gets.chomp
                 if num == "1"
@@ -119,13 +125,41 @@ require 'pry'
                     break
                 elsif num == "4"
                     exit
+                else
+                    puts "Sorry we didn't recognize that."
                 end
             end
         end
-        # when "5"
-        #     puts "please enter a name to get reviews"
-        #     name = gets.chomp.titleize
-        #     HairSalon.get_reviews_for_specific_salon(name)
+
+        def sub_menu_api
+            loop do
+                puts
+                puts "------------------------------------------------"
+                puts "1. View more info about your hair salon."
+                puts "2. Get Reviews"
+                puts "3. Go back to main menu."
+                puts "4. Exit App"
+                puts "Enter your selection: "
+                num = gets.chomp
+                    if num == "1"
+                        puts "Please Enter the Name of the Hair Salon you want more info on"
+                        name = gets.chomp
+                        find_hair_salon_by_name(@@location,name)
+                    elsif num == "2"
+                        puts "Please Enter the Name of the Hair Salon you want reviews for"
+                        name = gets.chomp
+                        hair_salon_first_three_reviews(@@location,name)
+                    elsif num == "3"
+                        break
+                    elsif num == "4"
+                        exit
+                    else
+                        puts "Sorry we couldn't recognize that"
+                    end
+            end
+        end
+
+        
 
         def display_menu
             puts "Available Search Options"
