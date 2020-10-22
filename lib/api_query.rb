@@ -77,6 +77,7 @@ def readable_list(aoh)
         puts "Price: #{business["price"]}"
         puts "Location: #{business["location"]["display_address"].join(" ")}"
         puts "Phone Number: #{business["display_phone"]}"
+        puts "Website: #{business["url"]}"
         puts "--------------------------------------------------"
     end
 end
