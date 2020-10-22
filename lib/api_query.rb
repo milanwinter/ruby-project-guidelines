@@ -46,6 +46,7 @@ end
 
 def list_of_hair_salons(city)
       data = search(city)
+
       list = []
       data["businesses"].each do |business|
         list << business
@@ -103,8 +104,39 @@ def find_hair_salon_by_name(location = "San Francisco", name)
     else
         puts ""
         puts "No Salon found. Please review salon's name."
+    end
 end
 
+def hair_salon_with_highest_price(city)
+    list = list_of_hair_salons(city).select{|business| business["price"] == "$$$"}
+    readable_list(list)
+end
 
-#  binding.pry
+def hair_salon_with_lowest_price(city)
+    list = list_of_hair_salons(city).select{|business| business["price"] == "$"}
+    readable_list(list)
+end
+
+def rendered_list(aoh)
+    
+    aoh.each do |review|
+        puts "--------------------------------------------------"
+        puts "Name: #{review["user"]["name"]}"
+        puts "Comment: #{review["text"]}"
+        puts "Number of stars: #{review["rating"]}"
+        puts "Date: #{review["time_created"]}"
+        puts "--------------------------------------------------"      
+    end
+end
+
+def hair_salon_first_three_reviews(city, name)
+    list = list_of_hair_salons(city).collect{|business|
+        if business["name"] == name
+            business_reviews(business["id"])
+        end
+    }.compact.first
+    #binding.pry
+    rendered_list(list)
+end
+
   
