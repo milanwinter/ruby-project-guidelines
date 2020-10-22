@@ -4,8 +4,20 @@ require 'pry'
     class CLI
 
         # def welcome
-        #     puts "Welcome to the SalonFindr App For San Francisco!"
+        #     puts "Welcome to the SalonFindr App"
         #    puts "Available Search Options"
+        #end 
+        # def location
+            #puts please enter location
+            #gets location from user
+         # end
+        
+        #if location == "San Francisco"
+            #puts menu
+            #runs the rest of the cli using model/methods
+        #else
+            #puts menu
+            #runs cli using api_query
         #     puts "-----------------------------------------"
         #     puts "DONE. Hair Salons with the highest ratings and most reviews"
         #     puts "DONE. Find hair salons based on price range 

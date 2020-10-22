@@ -17,20 +17,20 @@ class HairSalon < ActiveRecord::Base
     end
 
     def self.top_10_highest_reviewed_salons_with_most_reviews
-       self.most_reviewed_salons.lazy.select{|salon| salon.rating == 5}.take(10).to_a
+       self.most_reviewed_salons.select{|salon| salon.rating == 5}.take(10).to_a
     end
 
 
     def self.salons_by_highest_price
-        self.all.lazy.select{|salon| salon.price == "$$$"}.take(10).to_a
+        self.all.select{|salon| salon.price == "$$$"}.take(10).to_a
     end
 
     def self.salons_by_lowest_price
-        self.all.lazy.select{|salon| salon.price == "$"}.take(10).to_a
+        self.all.select{|salon| salon.price == "$"}.take(10).to_a
     end
 
     def self.hair_salon_info_by_name(name)
-        
+        self.all.select{|salon| salon.name == name}
     end
 
     def self.print_out_info(array_of_salon_hashes)
