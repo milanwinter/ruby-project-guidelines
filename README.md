@@ -28,6 +28,9 @@ ruby bin/run.rb
 ## Contributing
 Contributions are welcome. Feel free to open a pull request or branch from this project.
 
+## App Demo
+SalonFindr app demo in this [link](https://www.youtube.com/watch?v=sXOAS0RoGNg).
+
 ## License 
 MIT License
 

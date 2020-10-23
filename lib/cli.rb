@@ -49,7 +49,7 @@ class CLI
                         sub_menu_sf
                     end
                 when "3"
-                    puts  "Hair salons that are open now:                             ".colorize(:color => :blue, :background => :white)
+                    puts  "Hair salons that are open now:                              ".colorize(:color => :blue, :background => :white)
                     hair_salon_open_now("San Francisco")
                     sub_menu_sf
                 when "4"

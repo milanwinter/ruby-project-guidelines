@@ -8,7 +8,7 @@ SEARCH_PATH = "/v3/businesses/search"
 BUSINESS_PATH = "/v3/businesses/" 
 DEFAULT_BUSINESS_ID = "yelp-san-francisco"
 DEFAULT_TERM = "dinner"
-DEFAULT_LOCATION = "San Francisco, CA"
+DEFAULT_LOCATION = "San Francis6co, CA"
 SEARCH_LIMIT = 20
 
 API_KEY = YELP_API_KEY
