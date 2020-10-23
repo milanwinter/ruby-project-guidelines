@@ -71,7 +71,7 @@ end
 
 def readable_list(aoh)
     aoh.each do |business|
-        puts "------------------------------------------------"
+        puts "------------------------------------------------".colorize(:color => :red)
         puts "Name: #{business["name"]}"
         puts "Number of Reviews: #{business["review_count"]}"
         puts "Rating out of 5: #{business["rating"]}"
@@ -79,17 +79,17 @@ def readable_list(aoh)
         puts "Location: #{business["location"]["display_address"].join(" ")}"
         puts "Phone Number: #{business["display_phone"]}"
         puts "Website: #{business["url"]}"
-        puts "--------------------------------------------------"
+        puts "--------------------------------------------------".colorize(:color => :red)
     end
 end
 
 def general_list(aoh)
     aoh.each do |business|
-        puts "--------------------------------------------------"
+        puts "--------------------------------------------------".colorize(:color => :red)
         puts "Name: #{business["name"]}"
         puts "Price: #{business["price"]}"
         puts "Rating out of 5: #{business["rating"]}"
-        puts "--------------------------------------------------"
+        puts "--------------------------------------------------".colorize(:color => :red)
     end
 end
 
@@ -119,9 +119,9 @@ def hair_salon_open_now(city)
         end
     }.compact
     if list.length === 0
-        puts "--------------------------------------------------"
+        puts "--------------------------------------------------".colorize(:color => :red)
         puts "No hair salon is open at the moment. Please check back later!"
-        puts "--------------------------------------------------"
+        puts "--------------------------------------------------".colorize(:color => :red)
     else
         general_list(list)
     end
@@ -131,7 +131,7 @@ end
 def find_hair_salon_by_name(city, name)
     salon = list_of_hair_salons(city).select {|salon| salon["name"] === name}
     if salon.length == 1
-        general_list(salon)
+        readable_list(salon)
     else
         puts 
         puts "Sorry, no salon found by that name, please check your spelling and capitalization."
@@ -141,12 +141,12 @@ end
 def rendered_list(aoh)
     #binding.pry
     aoh.each do |review|
-        puts "--------------------------------------------------"
+        puts "--------------------------------------------------".colorize(:color => :red)
         puts "Name: #{review["user"]["name"]}"
         puts "Comment: #{review["text"]}"
         puts "Number of stars: #{review["rating"]}"
         puts "Date: #{review["time_created"]}"
-        puts "--------------------------------------------------"      
+        puts "--------------------------------------------------".colorize(:color => :red) 
     end
 end
 
