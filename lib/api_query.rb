@@ -48,6 +48,7 @@ end
 def list_of_hair_salons(city)
       data = search(city)
       list = []
+    #   binding.pry
       data["businesses"].each do |business|
         list << business
       end
@@ -116,8 +117,10 @@ def hair_salon_with_lowest_price(city)
 end
 
 def hair_salon_open_now(city)
+    
     list = list_of_salon_info(city).map do |business|
-        if business["hours"].first["is_open_now"] === true
+        # binding.pry
+        if business["hours"] && business["hours"].first["is_open_now"] == true
             business
         end
     end.compact
