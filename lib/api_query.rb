@@ -1,6 +1,7 @@
 require "json"
 require 'http'
 require 'pry'
+require_relative '../config/key.rb'
 
 API_HOST = "https://api.yelp.com"
 SEARCH_PATH = "/v3/businesses/search"
@@ -10,7 +11,7 @@ DEFAULT_TERM = "dinner"
 DEFAULT_LOCATION = "San Francisco, CA"
 SEARCH_LIMIT = 20
 
-API_KEY = ENV["YELP_API_KEY"]
+API_KEY = YELP_API_KEY
 
 def search(term="hair salon", location)
     url = "#{API_HOST}#{SEARCH_PATH}"

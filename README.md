@@ -10,17 +10,6 @@ Run 'bundle install' to install required gems.
 bundle install
 ```
 
-Get your unique API key [here](https://www.yelp.com/developers/v3/manage_app). After that, add API key to environment.
-
-```bash
-export YELP_API_KEY="your-unique-API-code-here-sdnfdjk"
-```
-
-Check if your API key has been saved as an environment varible.
-
-```bash
-env
-```
 
 Run 'rake db:migrate' to create the database locally.
 
