@@ -53,10 +53,14 @@ require 'pry'
                         name = gets.chomp
                         HairSalon.hair_salon_info_by_name(name)
                     when "5"
+                        get_location
+                        menu
+                    when "6"
                         "Thank you for using SalonFindr! Have a great day"
                         exit
                     else 
-                        puts "Unavailable number entered. "
+                        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                        puts "Sorry we didn't recognize that :( "
                     end
                     
                     
@@ -91,11 +95,14 @@ require 'pry'
                             find_hair_salon_by_name(city, name)
                             sub_menu_api
                         when "5"
+                            get_location
+                            menu
+                        when "6"
                             "Thank you for using SalonFindr! Have a great day"
                             exit
                         else 
                             puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                            puts "Unavailable number entered. Please enter to get back to menu."
+                            puts "Sorry we didn't recognize that :( "
                     end
                     
                 end
@@ -114,11 +121,11 @@ require 'pry'
                 num = gets.chomp
                 if num == "1"
                     puts "Please Enter the Name of the Hair Salon you want more info on"
-                    name = gets.chomp.titleize
+                    name = gets.chomp
                     HairSalon.hair_salon_info_by_name(name)
                 elsif num == "2"
                     puts "Please Enter the Name of the Hair Salon you want reviews for"
-                    name = gets.chomp.titleize
+                    name = gets.chomp
                     HairSalon.get_reviews_for_specific_salon(name)
 
                 elsif num == "3"
@@ -168,8 +175,8 @@ require 'pry'
             puts "2. Find hair salon based on price range."
             puts "3. Find hair salons that are open now."
             puts "4. Find hair salon info by name."
-            puts "5. Exit Menu."
-            puts
+            puts "5. Enter New Location"
+            puts "6. Exit Menu."
             puts
             puts "Enter your selection: "
     

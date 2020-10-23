@@ -34,7 +34,12 @@ class HairSalon < ActiveRecord::Base
 
     def self.hair_salon_info_by_name(name)
         salon = self.all.select{|salon| salon.name == name}
-        self.print_out_full_info(salon)
+        if salon.length == 1
+            self.print_out_full_info(salon)
+        else
+            puts "---------------------------------------------------------------------"
+            puts "Sorry, no Salon found by that name, please check your spelling and capitalization."
+        end
     end
 
     # def self.hair_salon_info_by_name_full(name)
@@ -77,11 +82,15 @@ class HairSalon < ActiveRecord::Base
     def self.get_reviews_for_specific_salon(name)
         # binding.pry
         salon = self.all.select{|salon| salon.name == name}
-        reviews = Review.all.select do |review|
-            review.hair_salon_id == salon.first.id
+        if salon.length == 1
+            reviews = Review.all.select do |review|
+                review.hair_salon_id == salon.first.id
+            end
+                Review.make_reviews_readable(reviews)
+        else
+            puts "---------------------------------------------------------------------"
+            puts "Sorry, no Salon found by that name, please check your spelling and capitalization."
         end
-            Review.make_reviews_readable(reviews)
-    
     end
 
 

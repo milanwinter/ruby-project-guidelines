@@ -1,6 +1,7 @@
 require "json"
 require 'http'
 require 'pry'
+require_relative "../config/Constants.rb"
 
 API_HOST = "https://api.yelp.com"
 SEARCH_PATH = "/v3/businesses/search"
@@ -8,9 +9,9 @@ BUSINESS_PATH = "/v3/businesses/"
 DEFAULT_BUSINESS_ID = "yelp-san-francisco"
 DEFAULT_TERM = "dinner"
 DEFAULT_LOCATION = "San Francisco, CA"
-SEARCH_LIMIT = 20
+SEARCH_LIMIT = 50
 
-API_KEY = ENV["YELP_API_KEY"]
+API_KEY = YELP_API_KEY
 
 def search(term ="hair salon", location)
     url = "#{API_HOST}#{SEARCH_PATH}"
@@ -100,28 +101,8 @@ def hair_salon_with_most_review_and_highest_rating(city)
     general_list(list)
 end
 
-def hair_salon_open_now(city)
-    list = list_of_salon_info(city).map do |business|
-        if business["hours"].first["is_open_now"] === true
-            business
-        end
-    end.compact
-    readable_list(list)
-end
-
-def hair_salon_by_highest_rating(city)
-    list = list_of_hair_salons(city).sort_by{|business| business["rating"]}.reverse
-    general_list(list)
-end
-
-def find_hair_salon_by_name(location = "San Francisco", name)
-    salon = list_of_hair_salons(location).select {|salon| salon["name"] == name}
-    if salon.length == 1
-        readable_list(salon)
-    else
-        puts ""
-        puts "No Salon found. Please review salon's name."
-    end
+def hair_salon_with_most_reviews(city)
+    list_of_hair_salons(city).sort_by{|business| business["review_count"]}.reverse    
 end
 
 def hair_salon_with_highest_price(city)
@@ -133,6 +114,33 @@ def hair_salon_with_lowest_price(city)
     list = list_of_hair_salons(city).select{|business| business["price"] == "$"}
     general_list(list)
 end
+
+def hair_salon_open_now(city)
+    list = list_of_salon_info(city).map do |business|
+        if business["hours"].first["is_open_now"] === true
+            business
+        end
+    end.compact
+    readable_list(list)
+end
+
+def find_hair_salon_by_name(location, name)
+    salon = list_of_hair_salons(location).select {|salon| salon["name"] == name}
+    if salon.length == 1
+        readable_list(salon)
+    else
+        puts ""
+        puts "No Salon found. Please review salon's name."
+    end
+end
+
+# def hair_salon_by_highest_rating(city)
+#     list = list_of_hair_salons(city).sort_by{|business| business["rating"]}.reverse
+#     general_list(list)
+# end
+
+
+
 
 def rendered_list(aoh)
     #binding.pry
