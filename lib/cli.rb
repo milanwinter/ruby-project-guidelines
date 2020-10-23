@@ -52,10 +52,13 @@ class CLI
                     name = gets.chomp
                     HairSalon.hair_salon_info_by_name(name)
                 when "5"
-                    "Thank you for using SalonFindr! Have a great day"
+                    puts "Thank you for using SalonFindr! Have a great day <3"
                     exit
                 else 
-                    puts "Unavailable number entered. "
+                    puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                    puts "Unavailable number entered. Please enter to get back to menu."
+                    puts
+                    gets
                 end
                 
                 
@@ -89,11 +92,13 @@ class CLI
                         find_hair_salon_by_name(city, name)
                         sub_menu_api
                     when "5"
-                        "Thank you for using SalonFindr! Have a great day"
+                        puts "Thank you for using SalonFindr! Have a great day <3"
                         exit
                     else 
                         puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
                         puts "Unavailable number entered. Please enter to get back to menu."
+                        puts
+                        gets
                 end
                 
             end
@@ -124,6 +129,11 @@ class CLI
                 break
             elsif num == "4"
                 exit
+            else
+                puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                puts "Unavailable number entered. Please enter to get back to menu."
+                puts
+                gets
             end
         end
     end
@@ -153,6 +163,11 @@ class CLI
                         break
                     when "4"
                         exit
+                    else 
+                        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                        puts "Unavailable number entered. Please enter to get back to menu."
+                        puts
+                        gets
                 end
         end
     end
