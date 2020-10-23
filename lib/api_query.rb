@@ -2,6 +2,7 @@ require "json"
 require 'http'
 require 'pry'
 require_relative "../config/Constants.rb"
+require 'colorize'
 
 API_HOST = "https://api.yelp.com"
 SEARCH_PATH = "/v3/businesses/search"
@@ -72,7 +73,7 @@ end
 
 def readable_list(array_of_hashes)
     list = array_of_hashes.each do |business|
-        puts "-------------------------"
+        puts "-------------------------".colorize(:color => :magenta)
         puts "Name: #{business["name"]}"
         puts "Number of Reviews: #{business["review_count"]}"
         puts "Rating out of 5: #{business["rating"]}"
@@ -80,20 +81,19 @@ def readable_list(array_of_hashes)
         puts "Location: #{business["location"]["display_address"].join(" ")}"
         puts "Phone Nummber: #{business["display_phone"]}"
         puts "Website: #{business["url"]}"
-        puts "--------------------------"
+        puts "--------------------------".colorize(:color => :magenta)
     end
     list
 end
 
 def general_list(aoh)
     aoh.each do |business|
-        puts "--------------------------------------------------"
+        puts "--------------------------------------------------".colorize(:color => :magenta)
         puts "Name: #{business["name"]}"
         puts "Price: #{business["price"]}"
         puts "Rating out of 5: #{business["rating"]}"
         puts "Number of Reviews: #{business["review_count"]}"
-
-        puts "--------------------------------------------------"
+        puts "--------------------------------------------------".colorize(:color => :magenta)
     end
 end
 
@@ -132,8 +132,8 @@ def find_hair_salon_by_name(location, name)
     if salon.length == 1
         readable_list(salon)
     else
-        puts ""
-        puts "No Salon found. Please review salon's name."
+        puts "------------------------------------------".colorize(:color => :red, :background => :black)
+        puts "No Salon found. Please review salon's name.".colorize(:color => :red, :background => :black)
     end
 end
 
@@ -148,12 +148,12 @@ end
 def rendered_list(aoh)
     #binding.pry
     aoh.each do |review|
-        puts "--------------------------------------------------"
+        puts "--------------------------------------------------".colorize(:color => :magenta)
         puts "Name: #{review["user"]["name"]}"
         puts "Comment: #{review["text"]}"
         puts "Number of stars: #{review["rating"]}"
         puts "Date: #{review["time_created"]}"
-        puts "--------------------------------------------------"      
+        puts "--------------------------------------------------".colorize(:color => :magenta)      
     end
 end
 

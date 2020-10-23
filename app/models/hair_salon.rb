@@ -37,8 +37,8 @@ class HairSalon < ActiveRecord::Base
         if salon.length == 1
             self.print_out_full_info(salon)
         else
-            puts "---------------------------------------------------------------------"
-            puts "Sorry, no Salon found by that name, please check your spelling and capitalization."
+            puts "---------------------------------------------------------------------".colorize(:color => :red, :background => :black)
+            puts "Sorry, no Salon found by that name, please check your spelling and capitalization.".colorize(:color => :red, :background => :black)
         end
     end
 
@@ -49,20 +49,19 @@ class HairSalon < ActiveRecord::Base
 
     def self.print_out_basic_info(aoh)
         list = aoh.each do |salon|
-            puts "--------------------------"
+            puts "--------------------------".colorize(:color => :magenta)
             puts "Name: #{salon.name}"
             puts "Rating out of 5: #{salon.rating}"
             puts "Price: #{salon.price}"
             puts "Number of Reviews #{salon.number_of_reviews}"
-            puts "                                "
-            puts "                                "
+            puts "--------------------------".colorize(:color => :magenta)
         end
     end
 
     def self.print_out_full_info(array_of_salon_hashes)
         #output readable list of info
         list = array_of_salon_hashes.each do |salon|
-            puts "-------------------------"
+            puts "--------------------------".colorize(:color => :magenta)
             puts "Name: #{salon.name}"
             puts "Number of Reviews: #{salon.number_of_reviews}"
             puts "Rating out of 5: #{salon.rating}"
@@ -70,7 +69,7 @@ class HairSalon < ActiveRecord::Base
             puts "Location: #{salon.location}"
             puts "Phone Nummber: #{salon.phone_number}"
             puts "Website: #{salon.website}"
-            puts "--------------------------"
+            puts "--------------------------".colorize(:color => :magenta)
         end
         list
     end
@@ -88,8 +87,8 @@ class HairSalon < ActiveRecord::Base
             end
                 Review.make_reviews_readable(reviews)
         else
-            puts "---------------------------------------------------------------------"
-            puts "Sorry, no Salon found by that name, please check your spelling and capitalization."
+            puts "---------------------------------------------------------------------".colorize(:color => :red, :background => :black)
+            puts "Sorry, no Salon found by that name, please check your spelling and capitalization.".colorize(:color => :red, :background => :black)
         end
     end
 
