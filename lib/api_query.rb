@@ -98,10 +98,6 @@ def hair_salon_with_most_review_and_highest_rating(city)
     general_list(list)
 end
 
-# def hair_salon_by_highest_rating(city)
-#     list = list_of_hair_salons(city).sort_by{|business| business["rating"]}.reverse
-# end
-
 def hair_salon_with_most_reviews(city)
     list_of_hair_salons(city).sort_by{|business| business["review_count"]}.reverse    
 end
@@ -118,21 +114,27 @@ end
 
 def hair_salon_open_now(city)
     list = list_of_salon_info(city).map {|business|
-        if business["hours"].first()["is_open_now"] === true
+        if business["hours"] && business["hours"].first()["is_open_now"] === true
             business
         end
-    }.compact.take(10)
-    general_list(list)
+    }.compact
+    if list.length === 0
+        puts "--------------------------------------------------"
+        puts "No hair salon is open at the moment. Please check back later!"
+        puts "--------------------------------------------------"
+    else
+        general_list(list)
+    end
 end
 
 
 def find_hair_salon_by_name(city, name)
-    salon = list_of_hair_salons(city).select {|salon| salon["name"] == name}
+    salon = list_of_hair_salons(city).select {|salon| salon["name"] === name}
     if salon.length == 1
-        readable_list(salon)
+        general_list(salon)
     else
-        puts ""
-        puts "No salon found. Please review salon's name."
+        puts 
+        puts "Sorry, no salon found by that name, please check your spelling and capitalization."
     end
 end
 
@@ -154,7 +156,6 @@ def hair_salon_first_three_reviews(city, name)
             business_reviews(business["id"])
         end
     }.compact.first
-    #binding.pry
     rendered_list(list)
 end
 

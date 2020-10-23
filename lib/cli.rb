@@ -13,7 +13,7 @@ class CLI
     end
     
     def get_location
-        puts "Please enter Location"
+        puts "Please enter location"
         location = gets.chomp
         @@location = location
     end
@@ -27,36 +27,40 @@ class CLI
                 
                 case number
                 when "1"
-                    puts "Highest Rated Salons by most reviews"
-                    HairSalon.top_10_highest_reviewed_salons_with_most_reviews
+                    puts "Highest rated Salons by most reviews: "
+                    HairSalon.top_20_highest_reviewed_salons_with_most_reviews
                     sub_menu_sf
                 when "2"
                     puts "Would you like to sort by high-end or affordable salons?"
-                    puts "Enter 1 for high-end and 2 for affordable"
+                    puts "Enter 1 for high-end and 2 for affordable."
                     number = gets.chomp
                     if number == "1"
-                        puts "High End Salons:"
+                        puts "High-end salons:"
                         HairSalon.salons_by_highest_price
                         sub_menu_sf
                     else number == "2"
-                        puts "Affordable Salons"
+                        puts "Affordable salons:"
                         HairSalon.salons_by_lowest_price
                         sub_menu_sf
                     end
                 when "3"
-                    "Hair Salons That Are Open Now:"
+                    puts  "Hair salons that are open now:"
                     hair_salon_open_now("San Francisco")
                     sub_menu_sf
                 when "4"
-                    puts "Please Enter a name of a Salon"
+                    puts "Please enter a name of a salon:"
                     name = gets.chomp
                     HairSalon.hair_salon_info_by_name(name)
+                    sub_menu_sf
                 when "5"
-                    puts "Thank you for using SalonFindr! Have a great day <3"
+                    puts "Thank you for using SalonFindr! Have a great day <3."
                     exit
+                when "6"
+                    get_location
+                    menu
                 else 
                     puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                    puts "Unavailable number entered. Please enter to get back to menu."
+                    puts "Unavailable option. Please enter to get back to menu."
                     puts
                     gets
                 end
@@ -64,6 +68,7 @@ class CLI
                 
 
             else
+                city = @@location
                 display_menu
                 # puts 'got into the else statement'
                 number = gets.chomp
@@ -73,30 +78,34 @@ class CLI
                         sub_menu_api
                     when "2"
                         puts "Would you like to sort by high-end or affordable salons?"
-                        puts "Enter 1 for high-end and 2 for affordable"
+                        puts "Enter 1 for high-end and 2 for affordable: "
                         number = gets.chomp
                         if number == "1"
-                            puts "High End Salons:"
+                            puts "High-end salons:"
                             hair_salon_with_highest_price(city)
                          else number == "2"
-                            puts "Affordable Salons"
+                            puts "Affordable salons:"
                             hair_salon_with_lowest_price(city)
                         end
                         sub_menu_api
                     when "3"
+                        puts  "Hair salons that are open now:"
                         hair_salon_open_now(city)
                         sub_menu_api
                     when "4"
-                        puts "Please enter a name"
+                        puts "Please enter a name of a salon:"
                         name = gets.chomp
                         find_hair_salon_by_name(city, name)
                         sub_menu_api
                     when "5"
-                        puts "Thank you for using SalonFindr! Have a great day <3"
+                        puts "Thank you for using SalonFindr! Have a great day <3."
                         exit
+                    when "6"
+                        get_location
+                        menu
                     else 
                         puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                        puts "Unavailable number entered. Please enter to get back to menu."
+                        puts "Unavailable option. Please enter to get back to menu."
                         puts
                         gets
                 end
@@ -110,18 +119,18 @@ class CLI
             puts
             puts "--------------------------------------------------"
             puts "1. View more info about a hair salon."
-            puts "2. Get Reviews "
+            puts "2. Get reviews "
             puts "3. Go back to main menu."
             puts "4. Exit"
             puts
             puts "Enter your selection: "
             num = gets.chomp
             if num == "1"
-                puts "Please Enter the Name of the Hair Salon you want more info on"
+                puts "Please enter salon's name for more information:"
                 name = gets.chomp.titleize
                 HairSalon.hair_salon_info_by_name(name)
             elsif num == "2"
-                puts "Please Enter the Name of the Hair Salon you want reviews for"
+                puts "Please enter salon's name for most recent reviews:"
                 name = gets.chomp.titleize
                 HairSalon.get_reviews_for_specific_salon(name)
 
@@ -131,7 +140,7 @@ class CLI
                 exit
             else
                 puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                puts "Unavailable number entered. Please enter to get back to menu."
+                puts "Unavailable option. Please enter to get back to menu."
                 puts
                 gets
             end
@@ -144,7 +153,7 @@ class CLI
             puts
             puts "--------------------------------------------------"
             puts "1. View more info about a hair salon."
-            puts "2. Get Reviews "
+            puts "2. Get reviews "
             puts "3. Go back to main menu."
             puts "4. Exit"
             puts
@@ -152,11 +161,11 @@ class CLI
             num = gets.chomp
                 case num 
                     when "1"
-                        puts "Please Enter the Name of the Hair Salon you want more info on"
+                        puts "Please enter salon's name for more information:"
                         name = gets.chomp.titleize
                         find_hair_salon_by_name(city, name)
                     when "2"
-                        puts "Please Enter the Name of the Hair Salon you want reviews for"
+                        puts "Please enter salon's name for most recent reviews:"
                         name = gets.chomp.titleize
                         hair_salon_first_three_reviews(city, name)
                     when "3"
@@ -165,16 +174,12 @@ class CLI
                         exit
                     else 
                         puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                        puts "Unavailable number entered. Please enter to get back to menu."
+                        puts "Unavailable option. Please enter to get back to menu."
                         puts
                         gets
                 end
         end
     end
-    # when "5"
-    #     puts "please enter a name to get reviews"
-    #     name = gets.chomp.titleize
-    #     HairSalon.get_reviews_for_specific_salon(name)
 
     def display_menu
         puts "Available Search Options"
@@ -184,6 +189,7 @@ class CLI
         puts "3. Find hair salons that are open now."
         puts "4. Find hair salon info by name."
         puts "5. Exit Menu."
+        puts "6. Make a new search."
         puts
         puts
         puts "Enter your selection: "
