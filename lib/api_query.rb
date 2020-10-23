@@ -75,11 +75,29 @@ def readable_list(array_of_hashes)
         puts "Number of Reviews: #{business["review_count"]}"
         puts "Rating out of 5: #{business["rating"]}"
         puts "Price: #{business["price"]}"
-        puts "Location(s): #{business["location"]["display_address"].join(" ")}"
-        puts "Phone Nummber: #{business["phone"]}"
+        puts "Location: #{business["location"]["display_address"].join(" ")}"
+        puts "Phone Nummber: #{business["display_phone"]}"
+        puts "Website: #{business["url"]}"
         puts "--------------------------"
     end
     list
+end
+
+def general_list(aoh)
+    aoh.each do |business|
+        puts "--------------------------------------------------"
+        puts "Name: #{business["name"]}"
+        puts "Price: #{business["price"]}"
+        puts "Rating out of 5: #{business["rating"]}"
+        puts "Number of Reviews: #{business["review_count"]}"
+
+        puts "--------------------------------------------------"
+    end
+end
+
+def hair_salon_with_most_review_and_highest_rating(city)
+    list = hair_salon_with_most_reviews(city).select{|business| business["rating"] == 5.0}
+    general_list(list)
 end
 
 def hair_salon_open_now(city)
@@ -93,7 +111,7 @@ end
 
 def hair_salon_by_highest_rating(city)
     list = list_of_hair_salons(city).sort_by{|business| business["rating"]}.reverse
-    readable_list(list)
+    general_list(list)
 end
 
 def find_hair_salon_by_name(location = "San Francisco", name)
@@ -108,12 +126,12 @@ end
 
 def hair_salon_with_highest_price(city)
     list = list_of_hair_salons(city).select{|business| business["price"] == "$$$"}
-    readable_list(list)
+    general_list(list)
 end
 
 def hair_salon_with_lowest_price(city)
     list = list_of_hair_salons(city).select{|business| business["price"] == "$"}
-    readable_list(list)
+    general_list(list)
 end
 
 def rendered_list(aoh)

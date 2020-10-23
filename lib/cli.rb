@@ -12,7 +12,7 @@ require 'pry'
         end
         
         def get_location
-            puts "Please enter Location"
+            puts "Please enter a city."
             location = gets.chomp.titleize
             @@location = location
         end
@@ -67,7 +67,7 @@ require 'pry'
                     number = gets.chomp
                     case number
                         when "1"
-                            hair_salon_by_highest_rating(city)
+                            hair_salon_with_most_review_and_highest_rating(city)
                             sub_menu_api
                         when "2"
                             puts "Would you like to sort by high-end or affordable salons?"
@@ -135,7 +135,7 @@ require 'pry'
             loop do
                 puts
                 puts "------------------------------------------------"
-                puts "1. View more info about your hair salon."
+                puts "1. View more info about a hair salon."
                 puts "2. Get Reviews"
                 puts "3. Go back to main menu."
                 puts "4. Exit App"
