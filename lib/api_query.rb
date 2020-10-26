@@ -124,7 +124,7 @@ def hair_salon_open_now(city)
             business
         end
     end.compact
-    readable_list(list)
+    general_list(list)
 end
 
 def find_hair_salon_by_name(location, name)
@@ -136,14 +136,6 @@ def find_hair_salon_by_name(location, name)
         puts "No Salon found. Please review salon's name.".colorize(:color => :red, :background => :black)
     end
 end
-
-# def hair_salon_by_highest_rating(city)
-#     list = list_of_hair_salons(city).sort_by{|business| business["rating"]}.reverse
-#     general_list(list)
-# end
-
-
-
 
 def rendered_list(aoh)
     #binding.pry

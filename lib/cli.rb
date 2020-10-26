@@ -46,7 +46,7 @@ require 'colorize'
                         end
                     when "3"
                         "Hair Salons That Are Open Now:".colorize(:color => :magenta)
-                        hair_salon_open_now("San Francisco").colorize(:color => :magenta)
+                        hair_salon_open_now("San Francisco")
                         sub_menu_sf
                     when "4"
                         puts "Please Enter a name of a Salon".colorize(:color => :magenta)
@@ -120,7 +120,7 @@ require 'colorize'
                 puts "4. Exit".colorize(:color => :magenta)
                 puts "Enter your selection: ".colorize(:color => :magenta)
                 num = gets.chomp
-                if num == "1".colorize(:color => :magenta)
+                if num == "1"
                     puts "Please Enter the Name of the Hair Salon you want more info on".colorize(:color => :magenta)
                     name = gets.chomp
                     HairSalon.hair_salon_info_by_name(name)
